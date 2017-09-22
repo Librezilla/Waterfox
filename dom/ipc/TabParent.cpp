@@ -19,7 +19,6 @@
 #include "mozilla/dom/Event.h"
 #include "mozilla/dom/indexedDB/ActorsParent.h"
 #include "mozilla/dom/IPCBlobUtils.h"
-#include "mozilla/dom/PaymentRequestParent.h"
 #include "mozilla/EventStateManager.h"
 #include "mozilla/gfx/2D.h"
 #include "mozilla/gfx/DataSurfaceHelpers.h"
@@ -2855,21 +2854,6 @@ bool
 TabParent::DeallocPPluginWidgetParent(mozilla::plugins::PPluginWidgetParent* aActor)
 {
   delete aActor;
-  return true;
-}
-
-PPaymentRequestParent*
-TabParent::AllocPPaymentRequestParent()
-{
-  RefPtr<PaymentRequestParent> actor = new PaymentRequestParent(GetTabId());
-  return actor.forget().take();
-}
-
-bool
-TabParent::DeallocPPaymentRequestParent(PPaymentRequestParent* aActor)
-{
-  RefPtr<PaymentRequestParent> actor =
-    dont_AddRef(static_cast<PaymentRequestParent*>(aActor));
   return true;
 }
 
